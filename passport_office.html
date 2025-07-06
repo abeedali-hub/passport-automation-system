@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passport Office</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        function redirectTo(page) {
+            window.location.href = page;
+        }
+
+        function updateClock() {
+            const now = new Date();
+            const date = now.toDateString();
+            const time = now.toLocaleTimeString();
+            document.getElementById("liveClock").innerHTML = `${date} | ${time}`;
+        }
+
+        function getOfficeFromURL() {
+            const params = new URLSearchParams(window.location.search);
+            const office = params.get("office");
+            return office ? "Passport Office " + office : "Passport Office";
+        }
+
+        function updateOfficeTitle() {
+            document.getElementById("officeTitle").textContent = getOfficeFromURL();
+            document.getElementById("officeName").textContent = getOfficeFromURL();
+        }
+
+        setInterval(updateClock, 1000);
+        window.onload = updateOfficeTitle;
+    </script>
+    <style>
+        /* General Styling */
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        header, footer {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+
+        main {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .content {
+            text-align: left;
+            max-width: 800px;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Services List - Properly Aligned */
+        .services-list {
+            list-style-type: disc;
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+
+        .services-list li {
+            margin: 5px 0;
+        }
+
+        /* Footer Styling */
+        footer {
+            margin-top: auto;
+            text-align: center;
+        }
+
+        .social-media a {
+            margin: 0 10px;
+            display: inline-block;
+        }
+
+        .social-media img {
+            width: 30px;
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <h1>Passport Automation System</h1>
+        <div class="nav-buttons">
+            <button onclick="redirectTo('index.html')">🏠 Home</button>
+            <span id="liveClock"></span>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="content">
+            <h2 id="officeTitle">Passport Office</h2>
+            <p>Welcome to the official page of <strong><span id="officeName"></span></strong>. This office serves passport applicants with efficient and reliable services.</p>
+            
+            <h3>Our Vision</h3>
+            <p>To provide a hassle-free and transparent passport issuance system for citizens with minimal processing time.</p>
+
+            <h3>Services Offered</h3>
+            <ul class="services-list">
+                <li>New Passport Application</li>
+                <li>Renewal of Passport</li>
+                <li>Appointment Booking</li>
+                <li>Document Verification</li>
+                <li>Tracking Application Status</li>
+            </ul>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>© 2025 Passport Automation System</p>
+        <div class="social-media">
+            <a href="https://instagram.com" target="_blank"><img src="instagram.png" alt="Instagram"></a>
+            <a href="https://facebook.com" target="_blank"><img src="facebook.png" alt="Facebook"></a>
+            <a href="https://youtube.com" target="_blank"><img src="youtube.png" alt="YouTube"></a>
+            <a href="https://twitter.com" target="_blank"><img src="x.png" alt="X"></a>
+        </div>
+    </footer>
+
+</body>
+</html>

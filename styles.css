@@ -1,0 +1,290 @@
+/* Reset default styles */
+body, h1, h2, h3, p, ul, li {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Header with Live Clock */
+header {
+    background: #1a237e;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+}
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    width: 70px;  /* Adjust size */
+    height: auto;
+    margin-right: 15px;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.top-bar button {
+    padding: 10px;
+    border: none;
+    background: #ff9800;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+
+#liveClock {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 18px;
+}
+#passport-offices {
+    background: #f8f8f8;
+    padding: 20px;
+    text-align: center;
+    margin: 20px auto;
+    width: 80%;
+    border-radius: 8px;
+}
+
+/* Navigation Bar */
+nav {
+    background: #3949ab;
+    padding: 10px;
+    text-align: center;
+}
+
+nav ul {
+    list-style: none;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* Main Section */
+main {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* User Login Section */
+.user-login {
+    text-align: center;
+    width: 50%;
+    margin-bottom: 20px;
+}
+
+.user-login button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.new-user { background: #790707; color: rgb(255, 255, 255); }
+.existing-user { background: #2e7d32; color: rgb(255, 255, 255); }
+.check-appointment { background: #00838f; color: rgb(255, 255, 255); }
+.track-status { background: #ff9800; color: rgb(255, 255, 255); }
+
+.user-login button:hover {
+    opacity: 0.8;
+}
+
+/* Support Section */
+.support-section {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    width: 50%;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.call-centre {
+    background: #e0e0e0;
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 5px;
+}
+
+/* Dropdown Styles */
+select {
+    width: 80%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+
+/* Before You Apply Section */
+.before-you-apply {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    width: 50%;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.before-you-apply ul {
+    list-style: none;
+    text-align: left;
+}
+
+.before-you-apply ul li {
+    margin: 5px 0;
+}
+
+.new {
+    color: red;
+    font-weight: bold;
+}
+
+/* Footer */
+footer {
+    background-color: #2c3e50;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    width: 100%;
+}
+
+footer a {
+    color: #f1c40f;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 0 10px;
+}
+
+footer a:hover {
+    color: #ecf0f1;
+    text-decoration: underline;
+}
+footer {
+    background: #2c3e50;
+    color: white;
+    text-align: center;
+    padding: 15px;
+}
+
+.social-media img {
+    width: 30px;
+    margin: 10px;
+}
+/* Fade-in effect for the Welcome Page */
+.welcome-container {
+    animation: fadeIn 2s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Scale effect for Get Started button */
+.get-started-btn {
+    animation: scaleUp 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes scaleUp {
+    from {
+        transform: scale(1);
+    }
+    to {
+        transform: scale(1.1);
+    }
+}
+
+/* Hover effect for navigation buttons */
+.nav-buttons button {
+    transition: all 0.3s ease-in-out;
+}
+
+.nav-buttons button:hover {
+    background-color: #0056b3;
+    color: white;
+    transform: translateY(-3px);
+}
+
+/* Smooth page transition */
+body {
+    animation: pageFadeIn 1s ease-in;
+}
+
+@keyframes pageFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Button ripple effect */
+button {
+    position: relative;
+    overflow: hidden;
+}
+
+button::after {
+    content: "";
+    position: absolute;
+    background: rgba(255, 255, 255, 0.5);
+    width: 100px;
+    height: 100px;
+    transform: scale(0);
+    border-radius: 50%;
+    transition: transform 0.5s ease-out;
+    pointer-events: none;
+}
+
+button:active::after {
+    transform: scale(3);
+}
+
+/* Blinking effect for status messages */
+.status-message {
+    animation: blink 1s infinite alternate;
+}
+
+@keyframes blink {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0.5;
+    }
+}

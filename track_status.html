@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Passport Application</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+        }
+        header, footer {
+            background-color: #007bff;
+            color: white;
+            padding: 15px;
+            text-align: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header a, footer a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 12px;
+            border-radius: 5px;
+        }
+        header a:hover, footer a:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        .container {
+            flex: 1;
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin-top: 50px;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin: 10px 0 5px;
+        }
+        select, input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .error {
+            color: red;
+            font-size: 12px;
+            display: none;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .status-message {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .mandatory {
+            color: red;
+        }
+        footer {
+            text-align: center;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html">Home</a>
+        <h2>Track Passport Application</h2>
+        <div></div>
+    </header>
+
+    <div class="container">
+        <h2>Track Application Status</h2>
+        <p><span class="mandatory">*</span> Fields marked with asterisk are mandatory</p>
+
+        <label for="applicationType">Select Application Type <span class="mandatory">*</span></label>
+        <select id="applicationType">
+            <option value="">----- Select -----</option>
+            <option value="Fresh">Fresh Passport</option>
+            <option value="Reissue">Reissue of Passport</option>
+            <option value="Tatkal">Tatkal Passport</option>
+            <option value="Diplomatic">Diplomatic/Official Passport</option>
+        </select>
+        <span class="error" id="errorApplicationType">Please select an application type.</span>
+
+        <label for="fileNumber">File Number <span class="mandatory">*</span></label>
+        <input type="text" id="fileNumber" placeholder="Enter File Number">
+        <span class="error" id="errorFileNumber">Please enter your file number.</span>
+
+        <label for="dob">Date of Birth <span class="mandatory">*</span></label>
+        <input type="date" id="dob">
+        <span class="error" id="errorDOB">Please enter your date of birth.</span>
+
+        <button onclick="checkStatus()">Track Application</button>
+
+        <p class="status-message" id="statusMessage"></p>
+    </div>
+
+    <footer>
+        <p>© 2025 Passport Automation System</p>
+    </footer>
+
+    <script>
+        function checkStatus() {
+            let applicationType = document.getElementById("applicationType").value;
+            let fileNumber = document.getElementById("fileNumber").value;
+            let dob = document.getElementById("dob").value;
+            let statusMessage = document.getElementById("statusMessage");
+
+            // Reset error messages
+            document.getElementById("errorApplicationType").style.display = "none";
+            document.getElementById("errorFileNumber").style.display = "none";
+            document.getElementById("errorDOB").style.display = "none";
+
+            let hasError = false;
+
+            if (!applicationType) {
+                document.getElementById("errorApplicationType").style.display = "block";
+                hasError = true;
+            }
+            if (!fileNumber) {
+                document.getElementById("errorFileNumber").style.display = "block";
+                hasError = true;
+            }
+            if (!dob) {
+                document.getElementById("errorDOB").style.display = "block";
+                hasError = true;
+            }
+
+            if (hasError) {
+                statusMessage.textContent = "";
+                return;
+            }
+
+            // Simulated status based on file number (replace with actual API integration)
+            let statusData = {
+                "A12345": "In Process",
+                "B67890": "Approved",
+                "C11223": "Dispatched",
+                "D44556": "Rejected"
+            };
+
+            let applicationStatus = statusData[fileNumber] || "No record found. Please check your details.";
+
+            statusMessage.style.color = applicationStatus === "Rejected" ? "red" : "green";
+            statusMessage.textContent = `Application Status: ${applicationStatus}`;
+        }
+    </script>
+
+</body>
+</html>

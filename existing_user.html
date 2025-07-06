@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Existing User Login</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        // Function to validate Login ID
+        function validateLoginId() {
+            let loginId = document.getElementById("loginId").value;
+            let loginIdPattern = /^[A-Za-z][A-Za-z0-9._@-]{0,34}$/;
+
+            if (!loginIdPattern.test(loginId)) {
+                document.getElementById("loginIdError").innerText = "❌ Invalid Login ID.";
+                return false;
+            } else {
+                document.getElementById("loginIdError").innerText = "";
+                return true;
+            }
+        }
+
+        // Function to validate Password
+        function validatePassword() {
+            let password = document.getElementById("password").value;
+            let passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=!]).{8,14}$/;
+
+            if (!passwordPattern.test(password)) {
+                document.getElementById("passwordError").innerText = "❌ Invalid Password.";
+                return false;
+            } else {
+                document.getElementById("passwordError").innerText = "";
+                return true;
+            }
+        }
+
+        // Function to validate form before submission
+        function validateForm() {
+            let validLogin = validateLoginId();
+            let validPassword = validatePassword();
+
+            if (!validLogin || !validPassword) {
+                alert("❌ Please enter valid credentials.");
+                return false;
+            }
+            return true;
+        }
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 18px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header h1 {
+            margin: 0;
+            flex: 1;
+            text-align: center;
+        }
+        .nav-links {
+            margin-left: 20px;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            padding: 8px 12px;
+            border-radius: 5px;
+            background-color: #0056b3;
+        }
+        .nav-links a:hover {
+            background-color: #003f7f;
+        }
+        main {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            width: 90%;
+            max-width: 400px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+            text-align: left;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .error {
+            color: red;
+            font-size: 12px;
+            text-align: left;
+            display: block;
+        }
+        hr {
+            margin: 20px 0;
+            border: 0;
+            height: 1px;
+            background-color: #ccc;
+        }
+        footer {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section with Home Option -->
+    <header>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+        </div>
+        <h1>Passport Automation System</h1>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <h2>Existing User Login</h2>
+            <form onsubmit="return validateForm()">
+                <label for="loginId">Login ID *</label>
+                <input type="text" id="loginId" required maxlength="35" onblur="validateLoginId()">
+                <span id="loginIdError" class="error"></span>
+
+                <label for="password">Password *</label>
+                <input type="password" id="password" required minlength="8" maxlength="14" onblur="validatePassword()">
+                <span id="passwordError" class="error"></span>
+
+                <button type="submit">Login</button>
+            </form>
+
+            <hr>
+
+            <p>New User? Register below:</p>
+            <button onclick="window.location.href='new_user.html'">Register</button>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>© 2025 Passport Automation System</p>
+    </footer>
+
+</body>
+</html>

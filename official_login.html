@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Official User Login</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        function redirectTo(page) {
+            window.location.href = page;
+        }
+
+        function updateClock() {
+            const now = new Date();
+            const date = now.toDateString();
+            const time = now.toLocaleTimeString();
+            document.getElementById("liveClock").innerHTML = `${date} | ${time}`;
+        }
+
+        function getRoleFromURL() {
+            const params = new URLSearchParams(window.location.search);
+            const role = params.get("role");
+            return role ? role + " Login" : "Official User Login";
+        }
+
+        function updateLoginTitle() {
+            document.getElementById("loginTitle").textContent = getRoleFromURL();
+        }
+
+        setInterval(updateClock, 1000);
+        window.onload = updateLoginTitle;
+    </script>
+    <style>
+        /* Ensure page takes full height */
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        header, footer {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+
+        main {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-container {
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            background: white;
+        }
+
+        .login-container label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .login-container input {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .login-container button {
+            width: 100%;
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .login-container button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Footer at bottom */
+        footer {
+            margin-top: auto;
+        }
+
+        .social-media a {
+            margin: 0 10px;
+            display: inline-block;
+        }
+
+        .social-media img {
+            width: 30px;
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <h1>Passport Automation System</h1>
+        <div class="nav-buttons">
+            <button onclick="redirectTo('index.html')">🏠 Home</button>
+            <span id="liveClock"></span>
+        </div>
+    </header>
+
+    <!-- Main Login Section -->
+    <main>
+        <div class="login-container">
+            <h2 id="loginTitle">Official User Login</h2>
+            <label for="loginID">Login ID:</label>
+            <input type="text" id="loginID" placeholder="Enter your login ID" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" placeholder="Enter your password" required>
+
+            <button onclick="submitLogin()">Login</button>
+        </div>
+    </main>
+
+    <script>
+        function submitLogin() {
+            alert("Login functionality not implemented yet.");
+        }
+    </script>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>© 2025 Passport Automation System</p>
+        <div class="social-media">
+            <a href="https://instagram.com" target="_blank"><img src="instagram.png" alt="Instagram"></a>
+            <a href="https://facebook.com" target="_blank"><img src="facebook.png" alt="Facebook"></a>
+            <a href="https://youtube.com" target="_blank"><img src="youtube.png" alt="YouTube"></a>
+            <a href="https://twitter.com" target="_blank"><img src="x.png" alt="X"></a>
+        </div>
+    </footer>
+
+</body>
+</html>

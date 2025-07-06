@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Appointment Availability</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        function generateCaptcha() {
+            let captcha = Math.random().toString(36).substring(2, 8).toUpperCase();
+            document.getElementById("captchaText").innerText = captcha;
+            document.getElementById("captchaInput").value = "";
+        }
+
+        function validateCaptcha() {
+            let enteredCaptcha = document.getElementById("captchaInput").value.toUpperCase();
+            let actualCaptcha = document.getElementById("captchaText").innerText;
+
+            if (enteredCaptcha !== actualCaptcha) {
+                alert("❌ Incorrect Captcha. Please try again.");
+                generateCaptcha();
+                return false;
+            }
+            return true;
+        }
+
+        const appointmentData = {
+            "Bengaluru": [
+                { location: "PSK Bengaluru, Lalbagh", address: "Bengaluru", type: "Passport", quota: "Normal", date: "03/04/2025", slots: 1270 },
+                { location: "PSK Bengaluru, Sai Arcade", address: "Bengaluru", type: "Passport", quota: "Tatkaal", date: "25/03/2025", slots: 300 },
+                { location: "PSK Bengaluru, Lalbagh", address: "Bengaluru", type: "PCC", quota: "Normal", date: "10/03/2025", slots: 130 },
+                { location: "PSK Bengaluru, Sai Arcade", address: "Bengaluru", type: "Passport", quota: "Normal", date: "01/04/2025", slots: 650 }
+            ],
+            "Mumbai": [
+                { location: "PSK Mumbai, Andheri", address: "Mumbai", type: "Passport", quota: "Normal", date: "04/04/2025", slots: 980 },
+                { location: "PSK Mumbai, Andheri", address: "Mumbai", type: "Passport", quota: "Tatkaal", date: "20/03/2025", slots: 450 }
+            ]
+        };
+
+        function updateTable() {
+            if (!validateCaptcha()) return;
+
+            let office = document.getElementById("passportOffice").value;
+            let tableBody = document.getElementById("appointmentTableBody");
+            tableBody.innerHTML = "";
+
+            if (appointmentData[office]) {
+                appointmentData[office].forEach(appointment => {
+                    let row = `<tr>
+                        <td>${appointment.location}</td>
+                        <td>${appointment.address}</td>
+                        <td>${appointment.type}</td>
+                        <td>${appointment.quota}</td>
+                        <td>${appointment.date}</td>
+                        <td>${appointment.slots}</td>
+                    </tr>`;
+                    tableBody.innerHTML += row;
+                });
+            } else {
+                tableBody.innerHTML = `<tr><td colspan="6">No appointments available.</td></tr>`;
+            }
+        }
+
+        window.onload = generateCaptcha;
+    </script>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            background-color: #f9f9f9;
+        }
+        .container {
+            flex: 1;
+            max-width: 900px;
+            margin: auto;
+            padding: 20px;
+        }
+        header, footer {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+        h2 {
+            color: #0056b3;
+            text-align: center;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .captcha-container {
+            display: flex;
+            align-items: center;
+        }
+        .captcha-box {
+            font-size: 18px;
+            font-weight: bold;
+            background-color: #fff;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 100px;
+            text-align: center;
+        }
+        .refresh-button {
+            width: 25px;
+            margin-left: 10px;
+            background-color: #f0f0f0;
+            color: black;
+            border: 1px solid #ccc;
+            font-size: 12px;
+        }
+        .check-button {
+            background-color: #007bff;
+            color: white;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+        .check-button:hover {
+            background-color: #0056b3;
+        }
+        .table-container {
+            max-height: 400px;
+            overflow-y: auto;
+            margin-top: 15px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+            position: sticky;
+            top: 0;
+        }
+        .home-button {
+            background-color: white;
+            color: #007bff;
+            border: 1px solid #007bff;
+            padding: 8px 15px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .home-button:hover {
+            background-color: #007bff;
+            color: white;
+        }
+        footer {
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Passport Appointment System</h1>
+        <a href="index.html" class="home-button">Home</a>
+    </header>
+
+    <div class="container">
+        <h2>Appointment Availability</h2>
+
+        <form onsubmit="event.preventDefault(); updateTable();">
+            <label for="passportOffice">Passport Office *</label>
+            <select id="passportOffice" required>
+                <option value="">-- Select --</option>
+                <option value="Bengaluru">Bengaluru</option>
+                <option value="Mumbai">Mumbai</option>
+            </select>
+
+            <label>Enter Captcha *</label>
+            <div class="captcha-container">
+                <span id="captchaText" class="captcha-box"></span>
+                <button type="button" class="refresh-button" onclick="generateCaptcha()">🔄</button>
+            </div>
+            <input type="text" id="captchaInput" required>
+
+            <button type="submit" class="check-button">Check Appointment Availability</button>
+        </form>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Location</th>
+                        <th>Address</th>
+                        <th>Application Type</th>
+                        <th>Appointment Quota</th>
+                        <th>Appointment Date</th>
+                        <th>Appointments Released</th>
+                    </tr>
+                </thead>
+                <tbody id="appointmentTableBody">
+                    <tr><td colspan="6">No appointments available.</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 Passport Automation System</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passport Automation System</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        function redirectTo(page) {
+            window.location.href = page;
+        }
+
+        function updateClock() {
+            const now = new Date();
+            const date = now.toDateString();
+            const time = now.toLocaleTimeString();
+            document.getElementById("liveClock").innerHTML = `${date} | ${time}`;
+        }
+
+        function showPassportOffices() {
+            document.getElementById("passport-offices").style.display = "block";
+        }
+
+        function goToPassportOffice() {
+            const officeSelect = document.getElementById("passportOfficeSelect");
+            const selectedOffice = officeSelect.value;
+            if (selectedOffice !== "") {
+                window.location.href = `passport_office.html?office=${encodeURIComponent(selectedOffice)}`;
+            }
+        }
+
+        setInterval(updateClock, 1000);
+    </script>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <h1>Passport Automation System</h1>
+        <div class="nav-buttons">
+            <button onclick="redirectTo('index.html')">🏠 Home</button>
+            <span id="liveClock"></span>
+            <button onclick="showPassportOffices()">🌍 Passport Offices</button>
+        </div>
+    </header>
+
+    <!-- Main Section -->
+    <main>
+
+        <!-- User Login Section -->
+        <div class="user-login">
+            <button class="new-user" onclick="redirectTo('new_user.html')">➕ New User Registration</button>
+            <button class="existing-user" onclick="redirectTo('existing_user.html')">🔒 Existing User Login</button>
+            <button class="check-appointment" onclick="redirectTo('check_appointment.html')">📅 Check Appointment Availability</button>
+            <button class="track-status" onclick="redirectTo('track_status.html')">📜 Track Application Status</button>
+        </div>
+
+        <!-- Passport Offices Section -->
+        <div id="passport-offices" style="display: none;">
+            <h2>Know more about Passport Offices</h2>
+            <div class="passport-offices-list">
+                <p>Ahmedabad, Amritsar, Andaman and Nicobar, Bareilly, Bengaluru, Bhopal, Bhubaneswar, Chandigarh, Chennai, Cochin</p>
+                <p>Coimbatore, Dehradun, Delhi, Ghaziabad, Goa, Guwahati, Hyderabad, Jaipur, Jalandhar, Jammu</p>
+                <p>Kolkata, Kota, Kozhikode, Lucknow, Madurai, Mumbai, Nagpur, Patna, Pune</p>
+                <p>Raipur, Ranchi, Shimla, Srinagar, Surat, Tiruchirappalli, Trivandrum, Vijayawada, Visakhapatnam</p>
+            </div>
+            <p><strong>Note:</strong> Applicants should visit their respective passport office's website for more details.</p>
+        </div>
+
+        <!-- Support Section -->
+        <div class="support-section">
+            <h3>National Call Centre</h3>
+            <div class="call-centre">
+                <span>☎</span> <strong>1800-258-1800</strong>
+            </div>
+
+            <!-- Passport Office Selection -->
+            <h3>Passport Office Page</h3>
+            <select id="passportOfficeSelect" onchange="goToPassportOffice()">
+                <option value="">------------ Select Passport Office ------------</option>
+                <option value="Ahmedabad">Ahmedabad</option>
+                <option value="Bangalore">Bangalore</option>
+                <option value="Bhopal">Bhopal</option>
+                <option value="Chennai">Chennai</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Hyderabad">Hyderabad</option>
+                <option value="Kolkata">Kolkata</option>
+                <option value="Mumbai">Mumbai</option>
+                <option value="Pune">Pune</option>
+            </select>
+
+            <!-- Country Selection -->
+            <h3>Mission/Post</h3>
+            <select>
+                <option>------------ Select Country ------------</option>
+                <option>Australia</option>
+                <option>Canada</option>
+                <option>France</option>
+                <option>Germany</option>
+                <option>India</option>
+                <option>Japan</option>
+                <option>United Kingdom</option>
+                <option>United States</option>
+            </select>
+
+            <!-- Official User Login -->
+            <h3>Login for Official Users</h3>
+            <select id="officialUsers" onchange="redirectOfficialUser()">
+                <option value="">------------ Official Users ------------</option>
+                <option value="admin">Admin</option>
+                <option value="staff">Government Staff</option>
+                <option value="verification">Verification Officers</option>
+                <option value="police">Police</option>
+            </select>
+            
+            <script>
+                function redirectOfficialUser() {
+                    const userType = document.getElementById("officialUsers").value;
+                    if (userType) {
+                        window.location.href = `official_login.html?user=${userType}`;
+                    }
+                }
+            </script>
+        </div>
+
+        <!-- Before You Apply Section -->
+        <div class="before-you-apply">
+            <h3>Before You Apply</h3>
+            <ul>
+                <li><strong>Information Corner</strong></li>
+                <li><a href="getting-started.html">Getting Started</a></li>
+                <li><a href="faqs.html">FAQs</a></li>
+                <li><a href="passport-rules.html">Passport Act and Rules</a></li>
+                <li><a href="quick-guides.html">Quick Guides</a></li>
+            </ul>
+            <ul>
+                <li><strong>Forms and Affidavits</strong></li>
+                <li><a href="tatkaal-passports.html">Tatkaal Passports</a> <span class="new">New!</span></li>
+                <li><a href="appointment-status.html">Appointment Availability Status</a> <span class="new">New!</span></li>
+                <li><a href="fee-calculator.html">Fee Calculator</a></li>
+                <li><a href="police-station.html">Know Your Police Station</a></li>
+            </ul>
+        </div>
+
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>© 2025 Passport Automation System</p>
+        <div class="social-media">
+            <a href="https://instagram.com" target="_blank"><img src="instagram.png" alt="Instagram"></a>
+            <a href="https://facebook.com" target="_blank"><img src="facebook.png" alt="Facebook"></a>
+            <a href="https://youtube.com" target="_blank"><img src="youtube.png" alt="YouTube"></a>
+            <a href="https://twitter.com" target="_blank"><img src="x.png" alt="X"></a>
+        </div>
+    </footer>
+
+</body>
+</html>

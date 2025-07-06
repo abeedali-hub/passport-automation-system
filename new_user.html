@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New User Registration</title>
+    <script>
+        function showLoginIdPolicy() {
+            alert("Login ID Policy:\n✅ Must start with an alphabet (A-Z, a-z)\n✅ Can contain letters, numbers, and special characters (-._@)\n✅ Maximum length: 35 characters");
+        }
+
+        function showPasswordPolicy() {
+            alert("Password Policy:\n✅ Must contain at least:\n   - One uppercase letter (A-Z)\n   - One lowercase letter (a-z)\n   - One number (0-9)\n   - One special character (@#$%^&+=!)\n✅ Length: 8-14 characters");
+        }
+
+        function validatePassword() {
+            let password = document.getElementById("password").value;
+            let passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&+=!]).{8,14}$/;
+
+            if (!passwordPattern.test(password)) {
+                document.getElementById("passwordError").innerText = "❌ This is not a valid Password.";
+            } else {
+                document.getElementById("passwordError").innerText = "✅Password format is correct.";
+            }
+        }
+
+        function generateCaptcha() {
+            let captcha = Math.random().toString(36).substring(2, 8).toUpperCase();
+            document.getElementById("captchaText").innerText = captcha;
+            document.getElementById("captchaInput").value = "";
+        }
+
+        function validateCaptcha() {
+            let enteredCaptcha = document.getElementById("captchaInput").value.toUpperCase();
+            let actualCaptcha = document.getElementById("captchaText").innerText;
+
+            if (enteredCaptcha !== actualCaptcha) {
+                alert("❌ Incorrect Captcha. Please try again.");
+                generateCaptcha();
+                return false;
+            }
+            return true;
+        }
+
+        function showConfirmationMessage(event) {
+            event.preventDefault(); // Prevent actual form submission
+
+            if (!validateCaptcha()) {
+                return; // Stop if captcha is incorrect
+            }
+
+            document.getElementById("registrationForm").style.display = "none"; // Hide form
+            document.getElementById("confirmationMessage").style.display = "block"; // Show confirmation message
+        }
+
+        function syncLoginId() {
+            let useEmail = document.querySelector('input[name="sameAsEmail"]:checked').value;
+            let emailField = document.getElementById("email");
+            let loginIdField = document.getElementById("loginId");
+
+            if (useEmail === "yes") {
+                loginIdField.value = emailField.value;
+                loginIdField.readOnly = true; // Prevent manual changes
+            } else {
+                loginIdField.value = "";
+                loginIdField.readOnly = false; // Allow manual input
+            }
+        }
+
+        window.onload = generateCaptcha;
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 18px;
+        }
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            text-align: center;
+        }
+        label {
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+            text-align: left;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .error {
+            color: red;
+            font-size: 12px;
+        }
+        .captcha-container {
+            display: flex;
+            align-items: center;
+        }
+        .captcha-box {
+            font-size: 18px;
+            font-weight: bold;
+            background-color: #fff;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            width: 100px;
+            text-align: center;
+        }
+        .confirmation-message {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            background-color: #e6f7ff;
+            border: 1px solid #007bff;
+            border-radius: 10px;
+        }
+        footer {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Passport Automation System</h1>
+    </header>
+
+    <main>
+        <div class="container">
+            <h2>New User Registration</h2>
+
+            <form id="registrationForm" onsubmit="showConfirmationMessage(event)">
+                <label for="givenName">Name *</label>
+                <input type="text" id="givenName" required maxlength="45">
+
+                <label for="surname">Surname</label>
+                <input type="text" id="surname" maxlength="45">
+
+                <label for="dob">Date of Birth (DD/MM/YYYY) *</label>
+                <input type="date" id="dob" required>
+
+                <label for="email">E-mail ID *</label>
+                <input type="email" id="email" required maxlength="35" oninput="syncLoginId()">
+
+                <label>Do you want your Login ID to be the same as E-mail ID?</label>
+                <input type="radio" name="sameAsEmail" value="yes" onclick="syncLoginId()"> Yes
+                <input type="radio" name="sameAsEmail" value="no" checked onclick="syncLoginId()"> No
+
+                <label for="loginId">Login ID *</label>
+                <input type="text" id="loginId" required maxlength="35">
+                <button type="button" onclick="showLoginIdPolicy()">Login ID Policy</button>
+
+                <label for="password">Password *</label>
+                <input type="password" id="password" required minlength="8" maxlength="14" onblur="validatePassword()">
+                <span id="passwordError" class="error"></span>
+                <button type="button" onclick="showPasswordPolicy()">Password Policy</button>
+
+                <label for="confirmPassword">Confirm Password *</label>
+                <input type="password" id="confirmPassword" required minlength="8" maxlength="14">
+
+                <label for="hintQuestion">Hint Question *</label>
+                <select id="hintQuestion" required>
+                    <option value="">-- Select --</option>
+                    <option>What is your pet’s name?</option>
+                    <option>What is your mother’s maiden name?</option>
+                    <option>What is your favorite book?</option>
+                </select>
+
+                <label for="hintAnswer">Hint Answer *</label>
+                <input type="text" id="hintAnswer" required>
+
+                <label>Enter Captcha *</label>
+                <div class="captcha-container">
+                    <span id="captchaText" class="captcha-box"></span>
+                    <button type="button" onclick="generateCaptcha()">🔄</button>
+                </div>
+                <input type="text" id="captchaInput" required>
+
+                <button type="submit">Register</button>
+            </form>
+
+            <div id="confirmationMessage" class="confirmation-message">
+                <h3>Registration Successful!</h3>
+                <p>An activation link has been sent to your email.Please click on that link to activate your aacount.The link is valid upto only 5 days</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2025 Passport Automation System</p>
+    </footer>
+
+</body>
+</html>
